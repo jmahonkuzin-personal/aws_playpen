@@ -2,21 +2,22 @@ provider "aws" {
   region = "us-east-1"
 }
 
-resource "aws_instance" "dashboard" {
-  ami           = "ami-0c55b159cbfafe1f0" # Amazon Linux 2 AMI (update as needed)
+data "aws_ami" "ubuntu" {
+  most_recent = true
+
+  filter {
+    name = "name"
+    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
+  }
+
+  owners = ["099720109477"] # Canonical
+}
+
+resource "aws_instance" "app_server" {
+  ami           = data.aws_ami.ubuntu.id
   instance_type = "t2.micro"
 
-  user_data = <<-EOF
-              #!/bin/bash
-              yum update -y
-              yum install -y httpd
-              systemctl enable httpd
-              systemctl start httpd
-              cd /var/www/html
-              echo "<h1>Dashboard deployed!</h1>" > index.html
-              EOF
-
   tags = {
-    Name = "DashboardEC2"
+    Name = "learn-terraform"
   }
 }
