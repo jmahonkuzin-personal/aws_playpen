@@ -1,0 +1,43 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #fafafa;
+    margin: 0;
+    padding: 0;
+}
+nav {
+    background: #222;
+    color: #fff;
+    padding: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+nav h1 {
+    margin: 0;
+    font-size: 1.5em;
+}
+#tabs {
+    list-style: none;
+    display: flex;
+    gap: 2em;
+    margin: 0;
+    padding: 0;
+}
+#tabs li {
+    cursor: pointer;
+    padding: 0.5em 1em;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+#tabs li.active, #tabs li:hover {
+    background: #444;
+}
+main {
+    padding: 2em;
+}
+.tab-content {
+    display: none;
+}
+.tab-content.active {
+    display: block;
+}
